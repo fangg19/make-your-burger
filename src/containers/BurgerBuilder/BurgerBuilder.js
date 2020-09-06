@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Auxiliary from '../../hoc/Auxiliary';
 import Burger from '../../components/Burger/Burger';
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
 class BurgerBuilder extends Component {
   // old method of state init
@@ -12,16 +13,22 @@ class BurgerBuilder extends Component {
 
   state = {
     ingredients: {
-      meat: 1,
-      bacon: 1,
-      salad: 1,
-      cheese: 2,
+      meat: 0,
+      bacon: 0,
+      salad: 0,
+      cheese: 0,
     },
   };
+
+  addIngredientHandler = () => {};
+
+  removeIngredientHandler = () => {};
+
   render() {
     return (
       <Auxiliary>
         <Burger ingredients={this.state.ingredients} />
+        <BuildControls />
       </Auxiliary>
     );
   }
