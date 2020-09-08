@@ -10,10 +10,10 @@ const BuildControl = (props) => {
         onClick={props.ingredientWasRemoved}
         disabled={props.disabled}
       >
-        Less ➖
+        Less
       </button>
       <button className={classes.More} onClick={props.ingredientWasAdded}>
-        More ➕
+        More
       </button>
     </div>
   );
