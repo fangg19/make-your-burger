@@ -1,10 +1,10 @@
 .Modal {
   position: fixed;
   z-index: 500;
-  background-color: lightpink;
+  background-color: #f0f0f0;
   width: 70%;
-  border: 2px solid salmon;
-  border-radius: 10px;
+  border: 2px solid #0f0f0f;
+  border-radius: 5px;
   /* box-shadow: 1px 1px 1px black; */
   padding: 16px;
   left: 15%;
