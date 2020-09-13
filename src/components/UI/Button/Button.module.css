@@ -10,15 +10,19 @@
   font-weight: bold;
 }
 
-.Button:first-of-type {
+/* .Button:first-of-type {
   margin-left: 0;
   padding-left: 0;
-}
+} */
 
 .Success {
-  color: #5c9210;
+  border: 1px solid #009432;
+  color: #009432;
+  /* border-radius: 50px; */
 }
 
 .Danger {
-  color: #944317;
+  border: 1px solid #ea2027;
+  color: #ea2027;
+  /* border-radius: 50px; */
 }
