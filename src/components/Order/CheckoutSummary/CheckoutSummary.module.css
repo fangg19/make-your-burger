@@ -2,10 +2,16 @@
   text-align: center;
   width: 80%;
   margin: auto;
+  box-sizing: border-box;
+}
+
+.BurgerDiv {
+  width: 100%;
+  margin: auto;
 }
 
 @media (min-width: 600px) {
   .CheckoutSummary {
-    width: 500px;
+    width: 700px;
   }
 }
