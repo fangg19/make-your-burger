@@ -1,4 +1,5 @@
 .Input {
+  outline: none;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
@@ -24,5 +25,11 @@
 .InputElement:focus {
   outline: none;
   background-color: #ccc;
-  border: 1px solid #ee5a24;
+  border: 1px solid #17e46c;
+}
+
+.Invalid {
+  outline: none;
+  border: 1px solid #d32525;
+  background-color: #fab6af;
 }

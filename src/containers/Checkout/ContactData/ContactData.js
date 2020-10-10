@@ -16,6 +16,11 @@ export class ContactData extends Component {
           placeholder: 'Your Name',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       street: {
         elementType: 'input',
@@ -24,6 +29,11 @@ export class ContactData extends Component {
           placeholder: 'Street Name',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       zipCode: {
         elementType: 'input',
@@ -32,6 +42,13 @@ export class ContactData extends Component {
           placeholder: 'ZIP Code',
         },
         value: '',
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 5,
+        },
+        valid: false,
+        touched: false,
       },
       country: {
         elementType: 'input',
@@ -40,6 +57,11 @@ export class ContactData extends Component {
           placeholder: 'Country',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       email: {
         elementType: 'input',
@@ -48,6 +70,11 @@ export class ContactData extends Component {
           placeholder: 'Your E-mail',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       deliveryMethod: {
         elementType: 'select',
@@ -58,6 +85,7 @@ export class ContactData extends Component {
           ],
         },
         value: '',
+        touched: false,
       },
     },
     loading: false,
@@ -91,12 +119,35 @@ export class ContactData extends Component {
         this.setState({ loading: false });
       });
   };
+  //checking rules after eachother might get a bad result because only if the last rule is true then everything else is ignored.
+  //to get fix this i set the isValid = true in the first place so I can say that in every rule isValid will be true only if (rule is true) AND IT WAS ALREADY TRUE;
+  checkValidity(value, rules) {
+    let isValid = true;
+
+    if (rules.required) {
+      isValid = value.trim() !== '' && isValid;
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
+    if (rules.maxLength) {
+      isValid = value.length <= rules.minLength && isValid;
+    }
+    return isValid;
+  }
 
   inputChangedHandler = (event, inputIdentifier) => {
     const updatedOrderForm = { ...this.state.orderForm };
     const updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
 
     updatedFormElement.value = event.target.value;
+    updatedFormElement.valid = this.checkValidity(
+      updatedFormElement.value,
+      updatedFormElement.validation
+    );
+
+    updatedFormElement.touched = true;
 
     updatedOrderForm[inputIdentifier] = updatedFormElement;
     this.setState({ orderForm: updatedOrderForm });
@@ -119,6 +170,9 @@ export class ContactData extends Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
+            invalid={!formElement.config.valid}
+            shouldValidate={formElement.config.validation}
+            touched={formElement.config.touched}
             changed={(event) => this.inputChangedHandler(event, formElement.id)}
           />
         ))}
