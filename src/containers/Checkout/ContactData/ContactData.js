@@ -6,6 +6,8 @@ import Input from '../../../components/UI/Input/Input';
 
 import classes from './ContactData.module.css';
 import axios from '../../../axios-orders';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions/index';
 
 export class ContactData extends Component {
   state = {
@@ -92,12 +94,10 @@ export class ContactData extends Component {
       },
     },
     formIsValid: false,
-    loading: false,
   };
 
   orderHandler = (event) => {
     event.preventDefault();
-    console.log(this.props.ingredients);
 
     const formData = {};
 
@@ -112,16 +112,9 @@ export class ContactData extends Component {
       price: this.props.price,
       orderData: formData,
     };
+
+    this.props.onOrderBurger(order);
     // alert('You continue !!');
-    axios
-      .post('/orders.json', order)
-      .then((res) => {
-        this.setState({ loading: false });
-        this.props.history.push('/');
-      })
-      .catch((err) => {
-        this.setState({ loading: false });
-      });
   };
   //checking rules after eachother might get a bad result because only if the last rule is true then everything else is ignored.
   //to get fix this i set the isValid = true in the first place so I can say that in every rule isValid will be true only if (rule is true) AND IT WAS ALREADY TRUE;
@@ -191,7 +184,7 @@ export class ContactData extends Component {
         </Button>
       </form>
     );
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
     return (
@@ -205,9 +198,19 @@ export class ContactData extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ings: state.ingredients,
-    price: state.totalPrice,
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    loading: state.order.loading,
   };
 };
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(ContactData, axios));
