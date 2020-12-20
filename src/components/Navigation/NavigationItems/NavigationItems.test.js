@@ -6,6 +6,7 @@ import NavigationItems from './NavigationItems';
 import NavigationItem from './NavigationItem/NavigationItem';
 
 configure({ adapter: new Adapter() });
+
 describe('<NavigationItems />', () => {
   let wrapper;
   beforeEach(() => {
