@@ -6,9 +6,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
   return (props) => {
     const [error, setError] = useState(null);
 
-    //using constructor to display the error returned by Firebase on a Modal;
-    //firstly we used componentDidMount but we needed this error to be shown before the app rendered so we used the constructor method;
-
     const reqInterceptor = axios.interceptors.request.use((req) => {
       setError(null);
       return req;
@@ -35,7 +32,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
     return (
       <Auxiliary>
         <Modal show={error} modalClosed={errorConfirmedHandler}>
-          {error ? error.message : null}
+          {error ? <p>An error has occured. Please try again.</p> : null}
         </Modal>
         <WrappedComponent {...props} />
       </Auxiliary>

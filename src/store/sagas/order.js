@@ -14,6 +14,8 @@ export function* purchaseBurgerSaga(action) {
     );
   } catch (error) {
     yield put(actions.purchaseBurgerFail(error));
+    console.log('Nu merge');
+    console.log(error);
   }
 }
 
